@@ -1,0 +1,17 @@
+fullnameOverride: userservice
+replicaCount: 2
+
+image: toporischev/otuslab.userservice:1.0.0
+
+service:
+  port: 4000
+
+ingress:
+  host: arch.homework
+
+postgresql:
+  fullnameOverride: postgres
+  postgresqlDatabase: otuslab
+  postgresqlUsername: user
+  postgresqlPassword: password
+  

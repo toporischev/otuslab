@@ -1,0 +1,15 @@
+replicaCount: 1
+
+image:
+
+service:
+  port:
+
+ingress:
+  host: arch.homework
+
+postgresql:
+  fullnameOverride:
+  postgresqlDatabase:
+  postgresqlUsername:
+  postgresqlPassword:

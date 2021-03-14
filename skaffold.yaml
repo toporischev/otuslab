@@ -1,0 +1,24 @@
+apiVersion: skaffold/v2beta12
+kind: Config
+metadata:
+  name: skaffold
+build:
+  artifacts:
+    - image: toporischev/otuslab.userservice
+      context: src/userservice
+deploy:
+  helm:
+    releases:
+      - name: postgresql
+        chartPath: bitnami/postgresql
+        version: 10.3.11
+        valuesFiles:
+          - k8s/values.postgres.yaml
+        remote: true
+
+      - name: userservice
+        chartPath: k8s/charts/appservice
+        artifactOverrides:
+          image: toporischev/otuslab.userservice
+        valuesFiles:
+          - src/userservice/values.yaml
