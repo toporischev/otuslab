@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: user-configmap
 data:
-  POSTGRES_URI: {{ .Values.postgresql.fullnameOverride }}
+  POSTGRES_HOST: {{ .Values.postgresql.fullnameOverride }}
   POSTGRES_DB: {{ .Values.postgresql.postgresqlDatabase }}

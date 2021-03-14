@@ -54,7 +54,8 @@ namespace UserService
             {
                 var connectionStringBuilder = new NpgsqlConnectionStringBuilder
                 {
-                    Host = Environment.GetEnvironmentVariable("POSTGRES_URI"),
+                    Host = Environment.GetEnvironmentVariable("POSTGRES_HOST"),
+                    Port = int.Parse(Environment.GetEnvironmentVariable("POSTGRES_PORT")),
                     Database = Environment.GetEnvironmentVariable("POSTGRES_DB"),
                     Username = Environment.GetEnvironmentVariable("POSTGRES_USER"),
                     Password = Environment.GetEnvironmentVariable("POSTGRES_PASSWORD"),

@@ -6,7 +6,12 @@
       "launchBrowser": true,
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "POSTGRES_HOST": "arch.homework",
+        "POSTGRES_PORT": "31841",
+        "POSTGRES_DB": "otuslab",
+        "POSTGRES_USER": "user",
+        "POSTGRES_PASSWORD": "password"
       }
     }
   }

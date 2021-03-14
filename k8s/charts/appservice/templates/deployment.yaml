@@ -19,11 +19,13 @@ spec:
             - name: http
               containerPort: 80
           env:
-            - name: POSTGRES_URI
+            - name: POSTGRES_HOST
               valueFrom: 
                 configMapKeyRef:
                   name: user-configmap
-                  key: POSTGRES_URI
+                  key: POSTGRES_HOST
+            - name: POSTGRES_PORT
+              value: "5432"
             - name: POSTGRES_DB
               valueFrom:
                 configMapKeyRef:

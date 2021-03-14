@@ -1,14 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Npgsql;
+using Prometheus;
 using Serilog;
 
 namespace UserService
@@ -18,11 +13,12 @@ namespace UserService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddHealthChecks();
+            services.AddHealthChecks().ForwardToPrometheus();
 
             var connectionStringBuilder = new NpgsqlConnectionStringBuilder
             {
-                Host = Environment.GetEnvironmentVariable("POSTGRES_URI"),
+                Host = Environment.GetEnvironmentVariable("POSTGRES_HOST"),
+                Port = int.Parse(Environment.GetEnvironmentVariable("POSTGRES_PORT")),
                 Database = Environment.GetEnvironmentVariable("POSTGRES_DB"),
                 Username = Environment.GetEnvironmentVariable("POSTGRES_USER"),
                 Password = Environment.GetEnvironmentVariable("POSTGRES_PASSWORD"),
@@ -38,9 +34,12 @@ namespace UserService
             app.UseSerilogRequestLogging();
 
             app.UseRouting();
+            app.UseHttpMetrics();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapMetrics();
             });
         }
     }
